@@ -104,10 +104,12 @@ extension UIView {
     }
     
     func showSkeleton(skeletonConfig config: SkeletonConfig) {
-        isSkeletonAnimated = config.animated
-        flowDelegate = SkeletonFlowHandler()
-        flowDelegate?.willBeginShowingSkeletons(rootView: self)
-        recursiveShowSkeleton(skeletonConfig: config, root: self)
+        if #available(iOS 13.0, *) {
+            isSkeletonAnimated = config.animated
+            flowDelegate = SkeletonFlowHandler()
+            flowDelegate?.willBeginShowingSkeletons(rootView: self)
+            recursiveShowSkeleton(skeletonConfig: config, root: self)
+        }
     }
 
     private func recursiveShowSkeleton(skeletonConfig config: SkeletonConfig, root: UIView? = nil) {
